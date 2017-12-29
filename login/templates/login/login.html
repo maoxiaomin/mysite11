@@ -1,12 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>登录</title>
-</head>
-<body>
-    <h1>登录</h1>
-    <p><a href="{% url 'login:index' %}">回到首页</a></p>
-    <p><a href="{% url 'login:logout' %}">登出</a></p>
-</body>
-</html>
+{% extends 'login/index.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+{% endblock %}
+
+{% block title %}登录{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="col-md-4 col-md-offset-4">
+
+            <form class="form-login" action="/login/login/" method="post">
+                {% csrf_token %}
+
+                {% if  message  %}
+                    <div class="alert alert-warning">{{ message }}</div>
+                {% endif %}
+
+                <h2 class="text-center">欢迎登录</h2>
+
+                <div class="form-group">
+                    {{ login_form.username.label_tag }}
+                    {{ login_form.username }}
+                </div>
+                <div class="form-group">
+                    {{ login_form.password.label_tag }}
+                    {{ login_form.password }}
+                </div>
+                <div class="form-group">
+                    {% if login_form.captcha.errors %}
+                        <div class="alert alert-warning">{{ login_form.captcha.errors }}</div>
+                    {% endif %}
+
+                    {{ login_form.captcha.label_tag }}
+                    {{ login_form.captcha }}
+                </div>
+
+                <button type="reset" class="btn btn-default pull-left">重置</button>
+                <button type="submit" class="btn btn-primary pull-right">提交</button>
+            </form>
+
+        </div>
+    </div>
+{% endblock %}
+
+

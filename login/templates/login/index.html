@@ -1,12 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>首页</title>
-</head>
-<body>
+{% extends 'login/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'login/css/login.css' %}">
+{% endblock %}
+
+{% block title %}首页{% endblock %}
+
+{% block content %}
     <h1>首页</h1>
-    <p><a href="{% url 'login:login' %}">去登录</a></p>
-    <p><a href="{% url 'login:register' %}">去注册</a></p>
-</body>
-</html>
+    {% if request.session.is_login %}
+        <h2>欢迎回来！{{ request.session.user_name }}</h2>
+    {% else %}
+        <h2>你尚未登录，只能访问公开内容！</h2>
+    {% endif %}
+{% endblock %}

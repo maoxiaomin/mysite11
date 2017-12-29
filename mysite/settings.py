@@ -39,6 +39,7 @@ INSTALLED_APPS = [
 
     'blog',
     'login',
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -121,4 +122,16 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sina.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'maotao92@sina.com'
+EMAIL_HOST_PASSWORD = 'maotao4110'
+CONFIRM_DAYS = 7
